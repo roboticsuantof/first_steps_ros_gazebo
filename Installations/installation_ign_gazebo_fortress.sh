@@ -1,41 +1,39 @@
 #!/bin/sh
 
-# General stup NUC for marsupial agents
+# General steps for Ignition Gazebo Installation
 
 echo "Calling UPDATE \n\n"
-
 sudo apt update
-## Install Google Chrome
-echo "\n\n INSTALLING GOOGLE CHROME \n\n"
-wget --version
-sudo apt install wget
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
 
-## Install Terminator
-echo "\n\n INSTALLINS TERMINATOR \n\n"
-sudo apt-get update
-sudo apt-get install terminator -y
 
-## Install Visual Studio Code
-echo "\n\n INSTALLING VISUAL STUDIO CODE \n\n"
-sudo snap install --classic code
-sudo apt install software-properties-common apt-transport-https wget -y
-wget –q https://packages.microsoft.com/key/microsoft.asc -O- | sudo apt-key add -
-sudo add-apt-repository “deb[arch=amd64] https://packages.microsoft.com/repos/vscode stable main”
-sudo apt install code
+## Install Ignition Gazebo Fortress
+echo "\n\n INSTALLING RIGNITION GAZEBO FORTRESS \n\n"
 
-## Install ROS Noetic
-echo "\n\n INSTALLING ROS_NOETIC \n\n"
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-sudo apt install curl # if you haven't already installed curl
+sudo apt install python3-pip wget lsb-release gnupg curl
+pip install vcstool || pip3 install vcstool
+pip install -U colcon-common-extensions || pip3 install -U colcon-common-extensions
+pip show vcstool || pip3 show vcstool | grep Location
+pip show colcon-common-extensions || pip3 show colcon-common-extensions | grep Location
+export PATH=$PATH:$HOME/.local/bin/
+sudo sh -c 'echo "deb http://packages.ros.org/ros2/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros2-latest.list'
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
-sudo apt update
-sudo apt install ros-noetic-desktop-full
-source /opt/ros/noetic/setup.bash
-echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
-source ~/.bashrc
-sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
-sudo apt install python3-rosdep
-sudo rosdep init
-rosdep update
+sudo apt-get update
+sudo apt-get install python3-vcstool python3-colcon-common-extensions
+sudo apt-get install git
+mkdir -p ~/ign_gz_ws/src
+cd ign_gz_ws/src/
+wget https://raw.githubusercontent.com/ignition-tooling/gazebodistro/master/collection-fortress.yaml
+vcs import < collection-fortress.yaml
+sudo wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
+sudo apt-get update
+cd ~/ign_gz_ws/src/
+sudo apt -y install   $(sort -u $(find . -iname 'packages-'`lsb_release -cs`'.apt' -o -iname 'packages.apt' | grep -v '/\.git/') | sed '/ignition\|sdf/d' | tr '\n' ' ')
+sudo apt-get install g++-8
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8 --slave /usr/bin/gcov gcov /usr/bin/gcov-8
+gcc -v
+g++ -v
+cd ~/ign_gz_ws/
+colcon graph
+colcon build --merge-install
+. ~/ign_gz_ws/install/setup.bash
