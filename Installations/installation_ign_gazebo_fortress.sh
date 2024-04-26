@@ -55,13 +55,15 @@ echo "\n\n STEP 22 \n\n"
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8 --slave /usr/bin/gcov gcov /usr/bin/gcov-8
 echo "\n\n STEP 23 \n\n"
 gcc -v
-echo "\n\n STEP 1 \n\n"
+echo "\n\n STEP 24 \n\n"
 g++ -v
-echo "\n\n STEP 1 \n\n"
+echo "\n\n STEP 25 \n\n"
 cd ~/ign_gz_ws/
-echo "\n\n STEP 1 \n\n"
+echo "\n\n STEP 26 \n\n"
 colcon graph
-echo "\n\n STEP 1 \n\n"
+echo "\n\n STEP 27 \n\n"
 colcon build --merge-install
-echo "\n\n STEP 1 \n\n"
+echo "\n\n STEP 28 \n\n"
+cd ~/ign_gz_ws/
+echo "\n\n STEP 29 \n\n"
 . ~/ign_gz_ws/install/setup.bash
