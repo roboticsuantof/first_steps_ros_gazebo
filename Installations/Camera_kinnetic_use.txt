@@ -1,0 +1,17 @@
+## Next Instructions allow you to communicate two (or more) machines
+
+# Condiration
+	- rosrun must run only in one compute (master)
+	- lest supouse next IP: master 10.10.29.6 ,  host 10.10.29.7
+
+Steps:
+
+1) In Master machine, write in terminal
+
+export ROS_MASTER_URI=http://10.10.29.6:11311
+export ROS_HOSTNAME=10.10.29.6
+
+2) In Host machine, write in terminal
+
+export ROS_MASTER_URI=http://10.10.29.6:11311
+export ROS_HOSTNAME=10.10.29.7

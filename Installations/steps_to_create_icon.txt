@@ -1,0 +1,76 @@
+Next instructions are used to create a Icon in Ubuntu 20.04. These steps were used with arduino IDE 2.3.4:
+
+# Step 1: Create a .desktop File
+
+	1.) Open a terminal (Ctrl + Alt + T).
+
+	2.) Create a .desktop file in the ~/.local/share/applications/ directory:
+
+		nano ~/.local/share/applications/arduino-ide.desktop
+		
+# Step 2: Add Content to the .desktop File
+
+	1.) In the text editor, add the following content:
+
+		[Desktop Entry]
+		Name=Arduino IDE
+		Comment=Integrated Development Environment for Arduino
+		Exec=/home/your-username/arduino-ide/arduino-ide
+		Icon=/home/your-username/arduino-ide/resources/app/resources/icons/icon.png
+		Terminal=false
+		Type=Application
+		Categories=Development;IDE;
+		StartupNotify=true
+		
+		In my case using arduino IDE 2.3.4 :
+
+		[Desktop Entry]
+		Name=Arduino IDE
+		Comment=Integrated Development Environment for Arduino
+		Exec=/home/simon/arduino-ide_2.3.4_Linux_64bit/arduino-ide
+		Icon=/home/simon/arduino-ide_2.3.4_Linux_64bit/resources/app/resources/icons/512x512.png
+		Terminal=false
+		Type=Application
+		Categories=Development;IDE;
+		StartupNotify=true
+
+		
+	2.) Replace /home/your-username/arduino-ide/ with the actual path to your Arduino IDE installation. For example, if you extracted the .zip file to your home directory, the path might be /home/simon/arduino-ide/.
+
+# Step 3: Save and Exit
+
+	1.) Save the file:
+
+		Press Ctrl + O, then press Enter.
+
+	2.) Exit the editor:
+
+		Press Ctrl + X.
+
+# Step 4: Make the .desktop File Executable
+
+	1.) Run the following command to make the .desktop file executable:
+
+		chmod +x ~/.local/share/applications/arduino-ide.desktop
+		
+# Step 5: Copy the Shortcut to the Desktop
+
+	1.) Copy the .desktop file to your desktop:
+
+		cp ~/.local/share/applications/arduino-ide.desktop ~/Desktop/
+
+	2.) If the file doesn't appear on your desktop, right-click on the desktop and select Allow Launchers.
+
+# Step 6: Launch Arduino IDE from the Desktop
+
+	1.) Double-click the Arduino IDE shortcut on your desktop.
+
+	2.) If prompted, select Trust and Launch to allow the shortcut to run.
+
+# Optional: Add to Favorites
+
+	1. Open the Applications Menu (usually in the bottom-left corner of the screen).
+
+	2. Search for Arduino IDE.
+
+	3. Right-click the Arduino IDE icon and select Add to Favorites to pin it to your dock.

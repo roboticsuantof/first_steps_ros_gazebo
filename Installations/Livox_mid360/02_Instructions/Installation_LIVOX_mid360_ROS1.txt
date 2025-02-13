@@ -1,0 +1,42 @@
+Next Document is base in official information from:  https://www.livoxtech.com/support/mid-360
+
+Does Livox Mid-360 support using the SDK and ROS driver of its Livox predecessors?
+"No. Compared with its Livox predecessors, Mid-360 adopts a different communication protocol, so when it comes to the LiDAR development, new SDK and ROS driver are required. For details, please visit: Livox SDK 2: https://github.com/Livox-SDK/Livox-SDK2. Livox ROS Driver 2: https://github.com/Livox-SDK/livox_ros_driver2."
+
+
+======================================================================
+
+Make a fast read to Livox Mid-360 "User Manual"
+
+Livox Mid-360 uses a M12 aviation connector for power supply as well as data transmission. Refer to the Connectors section for more information about the connector. It is recommended to use the Livox Aviation Connector 1-to-3 Splitter Cable (sold separately) when testing or using the Mid-360 temporarily. The Livox Aviation Connector 1-to-3 Splitter Cable contains the M12 aviation connector (female), power cable (bare wires), function cable (wires with insulation), and Ethernet cable (with RJ-45 connector).
+
+Set the wired connection:
+IP: 192.168.1.50
+MASK: 255.255.255.0
+GATEWAYS: 192.168.1.1
+
+IP LIVOX-360 192.168.1.173 (last number 73 are comming from ID LIDaR Serial Number in the LIVOX)
+
+# First: Installation Livox-SDK2
+
+Livox SDK2 is a software development kit designed for all Livox lidars such as HAP and Mid-360. It is developed based on C/C++ following Livox SDK2 Communication Protocol, and provides easy-to-use C style APIs. With the Livox SDK2, users can quickly connect to the Livox Lidars and receive point cloud data.
+
+- Fallow the instruction from : https://github.com/Livox-SDK/Livox-SDK2/tree/master
+
+ 
+# Second: Installation 
+
+Donwloas Livox Viewer 2 from : https://www.livoxtech.com/mid-360/downloads . Check Livox Mid-360 "User Manual" for more details.
+
+For Ubuntu User: Unzip  the downloaded file, and run the command "./livox_viewer_2.sh" file in the root directory  of the unzipped  folder.
+
+# Third : Integration Livox-SDK2 and ROS1
+
+https://github.com/Livox-SDK/livox_ros_driver2/blob/master/README.md
+
+- Download in home: git clone https://github.com/Livox-SDK/livox_ros_driver2.git ws_livox/src/livox_ros_driver2
+- In path ws_livox/src/livox_ros_driver2 , execute ./build.sh ROS1
+- config files must be corrected with the IP defined in HOST and LIDaR:
+	- Ei. MID360_config.json
+- Test installation using:
+	- roslaunch livox_ros_driver2 [launch file] (Example: roslaunch livox_ros_driver2 rviz_MID360.launch)
